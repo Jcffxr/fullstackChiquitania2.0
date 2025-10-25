@@ -33,10 +33,8 @@ document.addEventListener('click', (e) => {
 const navbar = document.querySelector('.navbar');
 window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
-        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
         navbar.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
     } else {
-        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
         navbar.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
     }
 });
@@ -103,7 +101,9 @@ function showNotification(message, type = 'info') {
     setTimeout(() => {
         notification.style.animation = 'slideOutRight 0.3s ease';
         setTimeout(() => {
-            document.body.removeChild(notification);
+            if (notification.parentElement) {
+                notification.remove();
+            }
         }, 300);
     }, 3000);
 }
@@ -175,13 +175,10 @@ activeStyle.textContent = `
 `;
 document.head.appendChild(activeStyle);
 
-// Loading animation
+// Loading animation - Set initial state in CSS
 window.addEventListener('load', () => {
-    document.body.style.opacity = '0';
-    setTimeout(() => {
-        document.body.style.transition = 'opacity 0.5s ease';
-        document.body.style.opacity = '1';
-    }, 100);
+    document.body.style.transition = 'opacity 0.5s ease';
+    document.body.style.opacity = '1';
 });
 
 // Parallax effect for hero section
